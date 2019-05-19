@@ -139,6 +139,9 @@ func (c *Client) SendWithAuth(req *http.Request, v interface{}) error {
 		}
 
 		req.Header.Set("Authorization", "Bearer "+c.Token.Token)
+	} else {
+		token, _ := c.GetAccessToken()
+		req.Header.Set("Authorization", "Bearer "+token.Token)
 	}
 
 	// Unlock the client mutex before sending the request, this allows multiple requests
